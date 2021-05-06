@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Login</title>
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+</head>
+<body>
+
+
+
+
+<div id="id01" class="modal">
+  
+  <form class=" " th:action="@{/login}" method="post">
+    
+
+    <div class="container">
+	<div class="imgcontainer">
+     <img th:src="@{/img/logo.jpg}" alt="Natixis logo"/>
+    </div>
+	
+    <div th:if="${param.error}">
+            <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p class="text-warning">You have been logged out.</p>
+        </div>
+      <input type="text" name="mail" class="form-control" placeholder="Nom d'utilisateur"  required>
+      <br>
+  
+      <input type="password" name="password" class="form-control" placeholder="Mot de passe"  required>
+        
+       <button type="submit">Login</button>
+    </div>
+
+    <div class="container" style="">
+      <button type="submit" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+</body>
+</html>

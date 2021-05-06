@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1>Hello </h1>
+    <p></p>
+    <ul>
+        <li>Allez  <a href="/user" th:href="@{/user}">autehntification</a></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/upload.css}"/>
+</head>
+
+<body>
+<div id="id01" class="modal">
+  
+  <form  th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    
+
+    <div class="container">
+	<div class="imgcontainer">
+      <img th:src="@{/img/logo.jpg}" alt="Natixis logo"/>
+	 
+    </div>
+
+      <p>Cliquez sur le boutton  "Choisir un fichier " pour charger un fichier:</p>
+        <input type="file" name="files" multiple="multiple" class="file">
+	 
+		<button type="submit">Charger</button>
+ 
+    </div>
+
+    <div class="container" style="">
+      <button type="button"  class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+</body>
+</html>
