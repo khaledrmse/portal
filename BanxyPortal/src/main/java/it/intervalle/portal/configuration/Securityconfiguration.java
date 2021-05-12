@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import it.intervalle.portal.service.CEConnection;
 import it.intervalle.portal.service.MuserDetailsServices;
  
 @EnableWebSecurity
@@ -123,7 +124,10 @@ public class Securityconfiguration  {
 	                 .csrf().disable()
 			          .authorizeRequests()    
 			          .antMatchers("AUTH_LIST").permitAll()
-	                  .antMatchers("/api/clients/**","/api/client/**").hasAnyAuthority("ADMIN").anyRequest().authenticated()
+	                  .antMatchers("/api/clients/**",
+	                		        "/api/client/**",
+	                		  	 "/api/pp/**","/api/pp2/**")
+	                  .hasAnyAuthority("ADMIN").anyRequest().authenticated()
 	                 .and()
 	                 .httpBasic();
 	        }
@@ -137,7 +141,9 @@ public class Securityconfiguration  {
 	
 	
 	
-	
-	
+		@Bean
+	    public CEConnection ceConnection() {
+	        return new CEConnection();
+	    }
 
 }

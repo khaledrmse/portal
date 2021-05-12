@@ -88,6 +88,58 @@
         	<artifactId>spring-boot-configuration-processor</artifactId>
         	<optional>true</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+ 
+</dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
+        
+        <dependency>
+    <groupId>com.filenet</groupId>
+    <artifactId>pe</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/pe.jar</systemPath>
+  </dependency>
+  <dependency>
+    <groupId>com.filenet.jace</groupId>
+    <artifactId>jace</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/jace.jar</systemPath>
+  </dependency>
+      <dependency>
+    <groupId>com.filenet.stax</groupId>
+    <artifactId>stax-api</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/stax-api.jar</systemPath>
+  </dependency>
+      <dependency>
+    <groupId>com.filenet.xlxpScanner</groupId>
+    <artifactId>xlxpScanner</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/xlxpScanner.jar</systemPath>
+  </dependency>
+   <dependency>
+    <groupId>com.filenet.xlxpScannerUtils</groupId>
+    <artifactId>xlxpScanner</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/xlxpScannerUtils.jar</systemPath>
+  </dependency>
+    
+  
+  
+  
 	</dependencies>
 
 	<build>
