@@ -17,9 +17,13 @@ import it.intervalle.portal.service.MuserDetailsServices;
  
 @EnableWebSecurity
 public class Securityconfiguration  {
-	
+
+     
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
+  
 	 private static final String[] AUTH_LIST = { //
-             "/v2/api-docs", //
+             "/v3/api-docs", //
              "/configuration/ui", //
              "/swagger-resources", //
              "/configuration/security", //
@@ -63,7 +67,11 @@ public class Securityconfiguration  {
            .permitAll()
        .and()
        .exceptionHandling()
-           .accessDeniedHandler(accessDeniedHandler);
+           .accessDeniedHandler(accessDeniedHandler)
+        .and()
+        .sessionManagement()
+        .maximumSessions(1)
+        .expiredUrl("/login");
 		 
 	}
 	
@@ -125,8 +133,7 @@ public class Securityconfiguration  {
 			          .authorizeRequests()    
 			          .antMatchers("AUTH_LIST").permitAll()
 	                  .antMatchers("/api/clients/**",
-	                		        "/api/client/**",
-	                		  	 "/api/pp/**","/api/pp2/**")
+	                		        "/api/client/**")
 	                  .hasAnyAuthority("ADMIN").anyRequest().authenticated()
 	                 .and()
 	                 .httpBasic();

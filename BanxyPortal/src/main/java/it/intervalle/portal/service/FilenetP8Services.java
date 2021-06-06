@@ -3,6 +3,8 @@ package it.intervalle.portal.service;
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ import com.filenet.api.core.ReferentialContainmentRelationship;
  
 @Service
 public class FilenetP8Services {
+	Logger log = LoggerFactory.getLogger(FilenetP8Services.class);
 	@Autowired
 	FilenetService filenetService;
 	
@@ -35,7 +38,7 @@ public class FilenetP8Services {
 			 c.establishConnection(filenetService.getUsername(), filenetService.getPassword(),filenetService.getContext(), filenetService.getUri());
 			 Domain d= c.fetchDomain();
 			 
-			 System.out.println(d.get_Name());
+			 log.info(d.get_Name());
 			ObjectStore   objectStore =  c.fetchOS(OS);	 
 		    Folder folder = Factory.Folder.fetchInstance(objectStore, pth, null);
 		    Document doc = createDocWithContent( objectStore, docname, "",b,

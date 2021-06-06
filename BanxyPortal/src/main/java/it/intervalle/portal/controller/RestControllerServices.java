@@ -1,10 +1,14 @@
 package it.intervalle.portal.controller;
 
  
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
  
 import java.util.List;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import it.intervalle.portal.entity.Client;
 import it.intervalle.portal.entity.ResponseMessage;
 import it.intervalle.portal.repo.Crudrepo;
@@ -24,37 +29,40 @@ import it.intervalle.portal.repo.Crudrepo;
 import it.intervalle.portal.service.FilenetP8Services;
 import it.intervalle.portal.service.FilenetService;
 import it.intervalle.portal.service.FilesStorageService;
+import it.intervalle.portal.service.MailService;
 
-@RestController
+@RestController()
 
 public class RestControllerServices {
 	public final static String DOCMINETYPEPDF = "application/pdf";
 	 @Autowired
 	 private Crudrepo crudrepo;
-	 @Autowired
-	 private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	 @Autowired
 	  FilesStorageService storageService;
 	 @Autowired
 	 FilenetService filenetService;
+	    @Autowired
+	    private MailService mailService;
 	 @Autowired
 	 FilenetP8Services filenetP8service;
 
 	 
 	
 	 
-	@PostMapping("/api/client")
-	public Client  register(@RequestBody Client client)
+	@PostMapping("api/client")
+	public Client  register(@RequestBody Client client) throws UnsupportedEncodingException, MessagingException
 	{
-		 client.setPassword( bCryptPasswordEncoder.encode(client.getPassword()));
-		crudrepo.save(client);
+	 
+		mailService.generateOneTimePassword(client);
 		
 		return client;
 		
 	 
 	}
 	
-	 @GetMapping(value = "/api/clients", produces = { "application/json", "application/xml" }  )
+	 @Operation(security = @SecurityRequirement(name = "basicAuth"))
+	 @GetMapping(value = "api/clients", produces = {"application/json"} )
 	    public List<Client> getUsers() {
 	        return (List<Client>) crudrepo.findAll();
 	    }

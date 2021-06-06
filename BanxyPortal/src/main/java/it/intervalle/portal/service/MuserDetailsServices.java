@@ -21,5 +21,26 @@ Crudrepo crudrepo;
 		client.orElseThrow(()-> new UsernameNotFoundException("client with mail"+mail+"not found"));
 	      return   client.map(MuserDetails::new).get();
 	}
-
+	
+	
+	   public Client updateOrSaveclient(Client client) {
+	        Optional < Client > clients = crudrepo.findByMail(client.getMail());
+             if (clients.isPresent()) {
+            	 System.out.println("prsent");
+            	 Client clientToupdate = clients.get();
+            	 clientToupdate.setPassword(client.getPassword());
+            	 clientToupdate.setTimepassword(client.getTimepassword());
+            	 crudrepo.save(clientToupdate);
+            	 return clientToupdate;
+			 }
+             else
+             {
+            	 System.out.println("notpresent");
+            	 crudrepo.save(client);
+            	 return client;
+             }
+	        
+             
+	        
+	   }
 }
