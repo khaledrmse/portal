@@ -34,6 +34,12 @@ public class Client {
             inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName="role_id")
             )
     private Set<Role> roles = new HashSet<>();
+	  
+	  
+	  
+
+
+
 	public int getId() {
 		return user_id;
 	}
