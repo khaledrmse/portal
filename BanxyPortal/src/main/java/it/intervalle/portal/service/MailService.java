@@ -1,6 +1,6 @@
 package it.intervalle.portal.service;
 
-import java.io.File;
+ 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
@@ -14,11 +14,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-
+ 
+ 
 import it.intervalle.portal.entity.Client;
 import net.bytebuddy.utility.RandomString;
 

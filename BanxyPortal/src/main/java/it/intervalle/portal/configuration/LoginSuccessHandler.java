@@ -26,13 +26,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                 throws IOException, ServletException {
          
          
-        MuserDetails clientDetails
-                = (MuserDetails) authentication.getPrincipal();
+        //MuserDetails clientDetails
+             //   = (MuserDetails) authentication.getPrincipal();
                  
-        Client client = clientDetails.getClient();
+         //Client client = clientDetails.getClient();
          
-        if(mailService.ExpiredOTP(client))
-            mailService.clearOTP(client);
+     
+        //    mailService.clearOTP(client);
         
          
         super.onAuthenticationSuccess(request, response, authentication);

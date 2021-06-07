@@ -39,8 +39,17 @@ Crudrepo crudrepo;
             	 crudrepo.save(client);
             	 return client;
              }
+             
 	        
              
 	        
 	   }
+	   
+	  public Client findClientByMail(String mail)
+	   {
+		   Optional<Client>client=crudrepo.findByMail(mail);
+			client.orElseThrow(()-> new UsernameNotFoundException("client with mail"+mail+"not found"));
+			return client.get();
+	   }
+	   
 }

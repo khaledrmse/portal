@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,27 +19,19 @@ import it.intervalle.portal.service.MuserDetailsServices;
  
 @EnableWebSecurity
 public class Securityconfiguration  {
-
-     
-    @Autowired
-    private LoginSuccessHandler loginSuccessHandler;
-  
-	 private static final String[] AUTH_LIST = { //
-             "/v3/api-docs", //
-             "/configuration/ui", //
-             "/swagger-resources", //
-             "/configuration/security", //
-             "/swagger-ui.html", //
-             "/webjars/**" //
-             };
 	 @Configuration
 	    @Order(2)
 	    public static class ApiWebSecurityConfigurationAdapter2 extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	MuserDetailsServices userDetailsService;
-	@Autowired
-    private LoggingAccessDeniedHandler accessDeniedHandler;
+		   // @Autowired
+		    //private  BeforeAuthenticationFilter beforeAuthenticationFilter;	   
+		    @Autowired
+		    private MuserDetailsServices userDetailsService;
+		    @Autowired
+		    private LoggingAccessDeniedHandler accessDeniedHandler;
+		   // @Autowired
+		   // private LoginSuccessHandler loginSuccessHandler;
+		   // @Autowired
+		   // private LoginFailureHandler loginFailureHandler;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -48,15 +42,20 @@ public class Securityconfiguration  {
            .antMatchers(
                    "/",
                    "/css/**",
+                   "/js/**",
                    "/img/**",
+                   "/swagger-ui.html/**",
                    "/webjars/**").permitAll()
             .antMatchers("AUTH_LIST").permitAll()
             .antMatchers("/load/**","/upload/**").hasAnyAuthority("USER","ADMIN")
             .anyRequest().authenticated()
        .and()
+      // .addFilterBefore(beforeAuthenticationFilter, BeforeAuthenticationFilter.class)
+      
        .formLogin()
        		.loginPage("/login")
        		.usernameParameter("mail")
+       	
        		.permitAll()
        .and()
        .logout()
@@ -68,12 +67,15 @@ public class Securityconfiguration  {
        .and()
        .exceptionHandling()
            .accessDeniedHandler(accessDeniedHandler)
+           
         .and()
         .sessionManagement()
         .maximumSessions(1)
-        .expiredUrl("/login");
+        .expiredUrl("/login?invalide-session=true");
 		 
 	}
+	
+	   
 	
 	
 	
@@ -95,11 +97,20 @@ public class Securityconfiguration  {
 		     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		   
 	}
+ 
+	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+	/* @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+	    @Override
+	    public AuthenticationManager authenticationManagerBean() throws Exception {
+	        return super.authenticationManagerBean();
+	    }*/
+	     
 	
+	 
 }
 	 @Configuration
 	    @Order(1)
@@ -142,15 +153,21 @@ public class Securityconfiguration  {
 	        
 	        
 	        
-	      
+	    	@Bean
+		    public CEConnection ceConnection() {
+		        return new CEConnection();
+		    }
 	    	
 	    }
 	
-	
-	
-		@Bean
-	    public CEConnection ceConnection() {
-	        return new CEConnection();
-	    }
 
+	
+	
+		
+		
+		
+		
+		
+	
+		
 }

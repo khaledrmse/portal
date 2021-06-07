@@ -28,6 +28,8 @@ button {
   border: none;
   cursor: pointer;
   width: 25%;
+  
+  z-index: 100;
 }
 button:hover {
   opacity: 0.8;
@@ -106,4 +108,17 @@ tr:nth-child(even){background-color: #f2f2f2}
 th {
   background-color: #652774;
   color: white;
+}
+.custom-file img{
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+
+
+.remove-button{
+  cursor: pointer;
+   background-color: #FF0000;
+  margin-left: 10px;
+  
 }
